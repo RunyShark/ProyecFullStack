@@ -22,6 +22,7 @@ route.post(
       "password",
       "La contraseña debe de de tener un largo mayor a 6 y menor a 15"
     ).isLength({ min: 6, max: 15 }),
+    validarErros,
   ],
   createUser
 );
@@ -44,10 +45,11 @@ route.post(
       "password",
       "La contraseña debe de de tener un largo mayor a 6 y menor a 15"
     ).isLength({ min: 6, max: 15 }),
+    validarErros,
   ],
   loginUser
 );
-route.get("/token", [], reNewToken);
+route.get("/token", [checkAuth], reNewToken);
 
 module.exports = {
   auth: route,
