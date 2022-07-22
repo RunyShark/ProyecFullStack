@@ -1,8 +1,14 @@
 const { request, response } = require("express");
 const { Idea } = require("../db/mysql");
 
-const getIdea = (req = request, res = response) => {
+const getIdea = async (req = request, res = response) => {
   try {
+    const ideas = await Idea.findAll();
+    res.json({
+      Error: false,
+      msg: "getIdea",
+      results: ideas,
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
@@ -55,6 +61,7 @@ const postIdea = async (req = request, res = response) => {
     });
   } catch (error) {
     console.log(error.message);
+
     res.status(500).json({
       Error: true,
       path: "Algo salio mal  Error: postIdea",
