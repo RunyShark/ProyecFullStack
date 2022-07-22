@@ -31,7 +31,7 @@ class Server {
   }
 
   listen() {
-    conn.sync({ force: true }).then(() => {
+    conn.sync({ force: false }).then(() => {
       this.app.listen(this.port, (error) => {
         if (error) console.log(`${"status 500 lister sv".red} ${error}`);
         console.log(

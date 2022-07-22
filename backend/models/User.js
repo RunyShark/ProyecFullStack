@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       score: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.BIGINT,
       },
     },
     { timestamps: false }
