@@ -4,6 +4,12 @@ const { Idea } = require("../db/mysql");
 const getIdea = async (req = request, res = response) => {
   try {
     const ideas = await Idea.findAll();
+    if (ideas.length === 0) {
+      const error = new Error("Actualmente no existen ideas en la bd");
+      return res
+        .status(400)
+        .json({ Error: true, msg: `getIdea ${error.message}` });
+    }
     res.json({
       Error: false,
       msg: "getIdea",
@@ -21,7 +27,6 @@ const getIdea = async (req = request, res = response) => {
 
 const updateIdea = (req = request, res = response) => {
   try {
-    res.send("Hola muendo soyupdateIdea");
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
