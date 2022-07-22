@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 require("colors");
-const {} = require("../models/Idea");
-const {} = require("../models/User");
+const modelIdea = require("../models/Idea");
+const modelUser = require("../models/User");
 const { DATANAME_DB, USE_DB, PASSWORD_DB, HOST_DB } = process.env;
 
 const sequelize = new Sequelize(DATANAME_DB, USE_DB, PASSWORD_DB, {
@@ -18,8 +18,12 @@ const conectDB = async () => {
 };
 conectDB();
 //relacion idea usuario
+modelIdea(sequelize);
+modelUser(sequelize);
+
+const { User, Idea } = sequelize.models;
 
 module.exports = {
+  ...sequelize.models,
   conn: sequelize,
-  conectDB,
 };
