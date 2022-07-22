@@ -9,8 +9,17 @@ const createUser = async (req = request, res = response) => {
 
     user.password = await hassPassword(req.body.password);
     user.save();
+    const { name, email, password } = user;
 
-    res.status(201).json({ Erro: false, msg: "CreateUser", user });
+    res.status(201).json({
+      Erro: false,
+      msg: "CreateUser",
+      newUser: {
+        name,
+        email,
+        password,
+      },
+    });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({

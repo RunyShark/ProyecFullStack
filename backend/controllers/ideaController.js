@@ -41,11 +41,17 @@ const postIdea = async (req = request, res = response) => {
   try {
     const idea = await new Idea(req.body);
     idea.save();
-    console.log(idea);
+
+    const { title, creationDate, description } = idea;
+
     res.status(201).json({
       Error: false,
       msg: "createIdea",
-      idea,
+      newOIdea: {
+        title,
+        creationDate,
+        description,
+      },
     });
   } catch (error) {
     console.log(error.message);
