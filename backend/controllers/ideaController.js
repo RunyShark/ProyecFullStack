@@ -1,5 +1,6 @@
 const { request, response } = require("express");
-const { Idea } = require("../db/mysql");
+
+const { Idea, User } = require("../db/mysql");
 
 const getIdea = async (req = request, res = response) => {
   try {
@@ -89,9 +90,13 @@ const postIdea = async (req = request, res = response) => {
   }
 };
 
+const reviw = async (req = request, res = response) => {
+  const reviw = await User.findByPk(req.params.id);
+};
 module.exports = {
   getIdea,
   updateIdea,
   deleteIdea,
   postIdea,
+  reviw,
 };

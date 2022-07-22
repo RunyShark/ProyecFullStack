@@ -23,6 +23,9 @@ modelUser(sequelize);
 
 const { User, Idea } = sequelize.models;
 
+User.belongsToMany(Idea, { through: "UsuarioIdeas" });
+Idea.belongsToMany(User, { through: "UsuarioIdeas" });
+
 module.exports = {
   ...sequelize.models,
   conn: sequelize,

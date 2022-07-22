@@ -22,7 +22,12 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       score: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        validate: {
+          max: 5,
+          min: 0,
+        },
       },
     },
     { timestamps: false }
