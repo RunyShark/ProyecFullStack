@@ -6,19 +6,18 @@ module.exports = (sequelize) => {
     {
       name: {
         type: DataTypes.STRING,
-        require: true,
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
-        require: true,
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING,
-        require: true,
+        allowNull: false,
       },
       score: {
         type: DataTypes.NUMBER,
-        defaultValue: 0,
       },
     },
     { timestamps: false }

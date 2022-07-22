@@ -12,7 +12,7 @@ class Server {
     this.app = express();
     this.port = PORT;
     this.path = {
-      routeAuth: "/api/Auth",
+      routeAuth: "/api/auth",
       routeIdea: "/api/idea",
     };
     this.middlewares();

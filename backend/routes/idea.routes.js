@@ -2,14 +2,14 @@ const { Router } = require("express");
 const { checkAuth, validarErros } = require("../middlewares");
 const { check } = require("express-validator");
 const {
-  deletePrueva,
-  getPrueva,
-  postPrueva,
-  putPrueva,
+  createIdea,
+  updateIdea,
+  deleteIdea,
+  postIdea,
 } = require("../controllers");
 const route = Router();
 
-route.get("/", [checkAuth], getPrueva);
+route.get("/", [checkAuth], createIdea);
 
 route.put(
   "/:id",
@@ -20,7 +20,7 @@ route.put(
       .isEmpty(), //verificar que exista el id
     check("id").custom(),
   ],
-  postPrueva
+  updateIdea
 );
 
 route.delete(
@@ -33,7 +33,7 @@ route.delete(
     //verificar que exista el id
     check("id").custom(),
   ],
-  deletePrueva
+  deleteIdea
 );
 
 route.post(
@@ -51,7 +51,7 @@ route.post(
       "La descipcion debe de tener un largo mayor a 10"
     ).isLength({ min: 10 }),
   ],
-  putPrueva
+  postIdea
 );
 
 module.exports = {
