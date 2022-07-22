@@ -16,7 +16,7 @@ route.post(
     check("email", "El email es un campo obligatorio").not().isEmpty(),
     check("email", "Debe de ser un corre valido").isEmail(),
     //comprobar que no este registrado
-    check("email").custom(),
+    //check("email").custom(),
     check("password", "La contraseña es un campo obligatorio").not().isEmpty(),
     check(
       "password",

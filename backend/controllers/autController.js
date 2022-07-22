@@ -3,19 +3,21 @@ const { hassPassword } = require("../helpers");
 const { User } = require("../db/mysql");
 
 const createUser = async (req = request, res = response) => {
-  const { name, email, password } = req.body;
-
+  console.log();
+  const { password } = req.body;
   try {
-    res.send("Hola muendo soy createUser");
+    const user = new User(req.body);
+    user.password = await hassPassword(password);
+    user.save();
+
+    res.status(201).json({ Erro: false, msg: "CreateUser", user });
   } catch (error) {
     console.log(error);
-    res.status(500).json(
-      `Algo salio mal  Error: ${{
-        Error: true,
-        path: "createUser",
-        msg: error.message,
-      }}`
-    );
+    res.status(500).json({
+      Error: true,
+      path: "Algo salio mal  Error: createUser",
+      msg: error.message,
+    });
   }
 };
 const loginUser = async (req = request, res = response) => {
