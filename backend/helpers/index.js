@@ -5,5 +5,5 @@ const validarErros = require("./validatorsErros");
 module.exports = {
   ...hashPassword,
   ...validarErros,
-  generadorJWT,
+  ...generadorJWT,
 };

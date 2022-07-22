@@ -18,7 +18,7 @@ const userExiste = async (email = "") => {
     },
   });
   if (!existe) {
-    throw new Error(`El usuario con el  correo: ${email} ya no existe`);
+    throw new Error(`El usuario con el  correo: ${email}  no existe`);
   }
 };
 

@@ -1,5 +1,6 @@
 const { request, response } = require("express");
-const { hassPassword } = require("../helpers");
+const { hassPassword, checkPassword, generarJWT } = require("../helpers");
+
 const { User } = require("../db/mysql");
 
 const createUser = async (req = request, res = response) => {
@@ -22,7 +23,29 @@ const createUser = async (req = request, res = response) => {
 
 const loginUser = async (req = request, res = response) => {
   try {
-    res.send("Hola muendo soy loginUser");
+    const { email, password } = req.body;
+    const loginUser = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (await checkPassword(password, loginUser.password)) {
+      res.json({
+        Erro: false,
+        msg: "Login",
+        user: {
+          uid: loginUser.id,
+          name: loginUser.name,
+          toke: generarJWT(loginUser),
+        },
+      });
+    } else {
+      res.status(400).json({
+        Error: true,
+        msg: "Login fail: la contraseña ingresada es incorrecta",
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
