@@ -25,8 +25,18 @@ const getIdea = async (req = request, res = response) => {
   }
 };
 
-const updateIdea = (req = request, res = response) => {
+const updateIdea = async (req = request, res = response) => {
   try {
+    const { image, creationDate, title, description } = req.body;
+    const ideaUpdate = await Idea.findByPk(req.params.id);
+
+    ideaUpdate.image = image || ideaUpdate.image;
+    ideaUpdate.creationDate = creationDate || ideaUpdate.creationDate;
+    ideaUpdate.title = title || ideaUpdate.title;
+    ideaUpdate.description = description || ideaUpdate.description;
+    await ideaUpdate.save();
+
+    res.status(202).json({ Error: false, msg: "updateIdea", ideaUpdate });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
@@ -36,9 +46,13 @@ const updateIdea = (req = request, res = response) => {
     });
   }
 };
-const deleteIdea = (req = request, res = response) => {
+const deleteIdea = async (req = request, res = response) => {
+  const { id } = req.params;
   try {
-    res.send("Hola muendo soy deleteIdea");
+    await Idea.destroy({
+      where: { id },
+    });
+    res.status(202).json({ Error: false, msg: "deleteIdea" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({

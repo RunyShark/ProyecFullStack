@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { checkAuth, validarErros } = require("../middlewares");
 const { check } = require("express-validator");
 const { getIdea, updateIdea, deleteIdea, postIdea } = require("../controllers");
-const { existeTitle } = require("../helpers");
+const { existeTitle, existIdea } = require("../helpers");
 const route = Router();
 
 route.get("/", [checkAuth], getIdea);
@@ -13,8 +13,8 @@ route.put(
     checkAuth,
     check("id", "El id es un campo obligatorio para poder editar")
       .not()
-      .isEmpty(), //verificar que exista el id
-    check("id").custom(),
+      .isEmpty(),
+    check("id").custom(existIdea),
     validarErros,
   ],
   updateIdea
@@ -28,7 +28,7 @@ route.delete(
       .not()
       .isEmpty(),
     //verificar que exista el id
-    check("id").custom(),
+    check("id").custom(existIdea),
     validarErros,
   ],
   deleteIdea

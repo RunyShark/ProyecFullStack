@@ -35,8 +35,17 @@ const existeTitle = async (title = "") => {
   }
 };
 
+const existIdea = async (id) => {
+  const exist = await Idea.findByPk(id);
+
+  if (!exist) {
+    throw new Error(`No existe ninga idea con ese id: ${id}`);
+  }
+};
+
 module.exports = {
   existeEmail,
   userExiste,
   existeTitle,
+  existIdea,
 };
