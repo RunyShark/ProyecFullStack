@@ -4,6 +4,11 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Idea",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       image: {
         type: DataTypes.STRING,
       },

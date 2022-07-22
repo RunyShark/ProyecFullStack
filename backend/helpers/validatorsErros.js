@@ -22,7 +22,21 @@ const userExiste = async (email = "") => {
   }
 };
 
+const existeTitle = async (title = "") => {
+  const exist = await Idea.findOne({
+    where: {
+      title,
+    },
+  });
+  if (exist) {
+    throw new Error(
+      `No se puede repetir los nombre, ya existe una idea con ese nombre:${title}`
+    );
+  }
+};
+
 module.exports = {
   existeEmail,
   userExiste,
+  existeTitle,
 };

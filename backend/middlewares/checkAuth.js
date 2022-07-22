@@ -12,7 +12,7 @@ const checkAuth = async (req, res, next) => {
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.registro = await User.findByPk(decoded.id, {
-        attributes: [],
+        attributes: ["id"],
       });
 
       return next();

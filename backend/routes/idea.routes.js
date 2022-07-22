@@ -1,15 +1,11 @@
 const { Router } = require("express");
 const { checkAuth, validarErros } = require("../middlewares");
 const { check } = require("express-validator");
-const {
-  createIdea,
-  updateIdea,
-  deleteIdea,
-  postIdea,
-} = require("../controllers");
+const { getIdea, updateIdea, deleteIdea, postIdea } = require("../controllers");
+const { existeTitle } = require("../helpers");
 const route = Router();
 
-route.get("/", [checkAuth], createIdea);
+route.get("/", [checkAuth], getIdea);
 
 route.put(
   "/:id",
@@ -19,6 +15,7 @@ route.put(
       .not()
       .isEmpty(), //verificar que exista el id
     check("id").custom(),
+    validarErros,
   ],
   updateIdea
 );
@@ -32,6 +29,7 @@ route.delete(
       .isEmpty(),
     //verificar que exista el id
     check("id").custom(),
+    validarErros,
   ],
   deleteIdea
 );
@@ -40,6 +38,7 @@ route.post(
   "/",
   [
     checkAuth,
+    check("title").custom(existeTitle),
     check("creationDate", "La fecha es un campo obligatorio").not().isEmpty(),
     check("title", "Es un campo obligaroio el title").not().isEmpty(),
     check("title", "el titulo debe de tener un largo mayor a 3").isLength({
@@ -50,6 +49,7 @@ route.post(
       "description",
       "La descipcion debe de tener un largo mayor a 10"
     ).isLength({ min: 10 }),
+    validarErros,
   ],
   postIdea
 );
