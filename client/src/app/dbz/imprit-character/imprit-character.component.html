@@ -1,0 +1,6 @@
+<h3>Personas</h3>
+<ul>
+  <li *ngFor="let chara of character; let i = index">
+    {{ i + 1 }} nombre{{ chara.name }} -{{ chara.power }}
+  </li>
+</ul>
